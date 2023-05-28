@@ -25,14 +25,13 @@ export const Header = () => {
           </div>
 
           <div
-            onClick={handleClickShowSidebar}
             className={`${
               showSidebar
                 ? 'sideBar-mobile-wrap show-bar-mobile'
                 : 'sideBar-mobile-wrap'
             }`}
           >
-            <Sidebar closeSidebar></Sidebar>
+            <Sidebar onClick={handleClickShowSidebar} closeSidebar></Sidebar>
           </div>
         </div>
 
@@ -78,7 +77,7 @@ const SearchStyle = styled.div`
   justify-content: space-between;
   align-items: center;
   .sideBar-mobile {
-    /* display: none; */
+    display: none;
   }
 
   .bar-mobile-icon {

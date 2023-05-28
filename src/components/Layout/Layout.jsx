@@ -61,6 +61,9 @@ const LayoutStyle = styled.div`
     }
     .right {
       width: 100%;
+      .sideBar-mobile {
+        display: block;
+      }
       .bar-mobile-icon {
         display: block;
       }

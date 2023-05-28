@@ -22,13 +22,13 @@ import {Card} from 'components/Card';
 import {Color} from 'components/Color';
 // import {MarketIcon} from 'components/Icon';
 
-export const Sidebar = ({closeSidebar}) => {
+export const Sidebar = ({closeSidebar, onClick}) => {
   // console.log(market);
   return (
     <SidebarStyled closeSidebar={closeSidebar}>
       <Logo></Logo>
       {closeSidebar ? (
-        <div className="close-btn">
+        <div className="close-btn" onClick={onClick}>
           <FaTimes></FaTimes>
         </div>
       ) : null}

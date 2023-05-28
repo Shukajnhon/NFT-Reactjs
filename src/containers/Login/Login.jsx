@@ -16,19 +16,19 @@ const Login = ({srcImg}) => {
 
   return (
     <LoginWrapStyle>
-      <div class="login-container">
+      <div className="login-container">
         <div className="login-form-wrap">
           {/* Login left */}
           <div className="login__left">
             <div className="login-content">
               <Logo></Logo>
               <h2 className="login-title">Log In</h2>
-              <form action="#" className="form-control">
+              <form className="form-control">
                 <div className="form-group">
-                  <label htmlFor>Username</label>
+                  <label htmlFor="username">Username</label>
                   <input
                     type="text"
-                    name
+                    name="username"
                     id="username"
                     placeholder="Username"
                   />
@@ -36,16 +36,16 @@ const Login = ({srcImg}) => {
                 </div>
                 <div className="form-group form-password">
                   <div className="form-label">
-                    <label className="form-label-password" htmlFor>
+                    <label className="form-label-password" htmlFor="password">
                       Password
                     </label>
-                    <label className="form-label-forgot-password" htmlFor>
+                    <label className="form-label-forgot-password">
                       Forgot Password?
                     </label>
                   </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    name
+                    name="password"
                     id="password"
                     placeholder="Enter password"
                   />
@@ -324,5 +324,91 @@ const LoginWrapStyle = styled.div`
 
   .images img {
     width: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    .login-form-wrap {
+      width: 994px;
+      margin: 0 auto;
+    }
+
+    .login-title {
+      margin-top: 30px;
+      font-size: 52px;
+      text-align: center;
+    }
+
+    .form-control {
+      min-width: 416px;
+    }
+
+    /* right */
+    .login-right-wrap .images {
+      width: 400px;
+      height: 500px;
+    }
+
+    .login-right-wrap .images {
+      top: 58%;
+    }
+
+    .girl-laptop img {
+      width: 500px;
+      height: 400px;
+    }
+
+    .cactus img {
+      width: 200px;
+      height: 400px;
+    }
+  }
+
+  /* Large */
+  @media (max-width: 992px) {
+    .login-form-wrap {
+      max-width: 800px;
+      padding: 10px;
+    }
+
+    .form-control {
+      min-width: 370px;
+    }
+
+    .btn {
+      row-gap: 24px;
+    }
+
+    /* right */
+    .login-right-wrap .images {
+      width: 324px;
+      height: 486px;
+    }
+
+    .girl-laptop img {
+      width: 392px;
+      height: 400px;
+    }
+
+    .cactus img {
+      width: 166px;
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .login-form-wrap {
+      width: 450px;
+    }
+    .form-group input {
+      border: 1px solid ${Color.primaryColor};
+    }
+
+    .login__left {
+      width: 100%;
+    }
+
+    .login__right {
+      display: none;
+    }
   }
 `;
