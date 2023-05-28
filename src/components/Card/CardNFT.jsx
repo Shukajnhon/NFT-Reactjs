@@ -8,7 +8,7 @@ import {Button} from 'components/Button';
 
 export const CardNFT = ({btn}) => {
   return (
-    <CardNFTStyle>
+    <CardNFTStyle className="card-nft-item">
       <div className="card-wrap">
         <div className="card-img">
           <img src={cardNFTImg} alt="cardNFT" />
@@ -68,8 +68,8 @@ export const CardNFT = ({btn}) => {
 };
 
 const CardNFTStyle = styled.div`
-  width: 348px;
-  height: 364px;
+  max-width: 348px;
+  max-height: 364px;
   background-color: #fff;
   border-radius: 16px;
 
@@ -78,9 +78,13 @@ const CardNFTStyle = styled.div`
     cursor: default;
   }
   .card-img {
+    width: 100%;
     position: relative;
     border-radius: 12px;
     cursor: pointer;
+  }
+  .card-img img {
+    width: 100%;
   }
 
   .card-time {

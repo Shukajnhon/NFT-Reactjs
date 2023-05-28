@@ -10,6 +10,7 @@ import {ReactComponent as SettingIcon} from 'assets/images/setting-icon.svg';
 import sunIcon from 'assets/images/sun-icon.svg';
 import moonIcon from 'assets/images/moon-icon.svg';
 import {ReactComponent as OtherIcon} from 'assets/images/other-icon.svg';
+import {FaTimes} from 'react-icons/fa';
 
 import styled from 'styled-components';
 
@@ -21,11 +22,16 @@ import {Card} from 'components/Card';
 import {Color} from 'components/Color';
 // import {MarketIcon} from 'components/Icon';
 
-export const Sidebar = () => {
+export const Sidebar = ({closeSidebar}) => {
   // console.log(market);
   return (
-    <SidebarStyled>
+    <SidebarStyled closeSidebar={closeSidebar}>
       <Logo></Logo>
+      {closeSidebar ? (
+        <div className="close-btn">
+          <FaTimes></FaTimes>
+        </div>
+      ) : null}
       <div className="dashboard-top">
         <NavLink to="/dashboard">
           <NavItem text="Dashboard">
@@ -125,7 +131,7 @@ const DarkmodeBox = () => {
     </DarkModeStyled>
   );
 };
-// className={({isActive}) => (isActive ? 'active' : 'inactive')}
+
 // NavItem    || Edit Nav
 const NavItem = ({text, colortext, children}) => {
   //   console.log(colortext);
@@ -234,6 +240,21 @@ const NavItemStyle = styled.div`
 `;
 
 const SidebarStyled = styled.div`
+  position: relative;
+  .close-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: ${Color.inputColor};
+    border-radius: 10px;
+    color: ${Color.textColor};
+    cursor: pointer;
+  }
   .dashboard-other {
     margin-bottom: 100px;
   }

@@ -1,16 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import searchIcon from 'assets/images/search-icon.svg';
 import avatar from 'assets/images/avatar.png';
+import {FaBars} from 'react-icons/fa';
 
 import {BsBell} from 'react-icons/bs';
 import {Color} from 'components/Color';
 import {Link} from 'react-router-dom';
+import {Sidebar} from 'components/Sidebar';
 
 export const Header = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const handleClickShowSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
   return (
     <div>
       <SearchStyle className="header-container">
+        {/* Mobile bar */}
+        <div className="sideBar-mobile">
+          <div className="bar-mobile-icon" onClick={handleClickShowSidebar}>
+            <FaBars></FaBars>
+          </div>
+
+          <div
+            onClick={handleClickShowSidebar}
+            className={`${
+              showSidebar
+                ? 'sideBar-mobile-wrap show-bar-mobile'
+                : 'sideBar-mobile-wrap'
+            }`}
+          >
+            <Sidebar closeSidebar></Sidebar>
+          </div>
+        </div>
+
+        {/* PC  */}
         <div className="search header-left">
           <div className="search-icon-wrap">
             <img className="search-icon" src={searchIcon} alt="search" />
@@ -51,6 +77,32 @@ const SearchStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .sideBar-mobile {
+    /* display: none; */
+  }
+
+  .bar-mobile-icon {
+    background: rgb(255 255 255);
+    width: 30px;
+    height: 30px;
+    line-height: 34px;
+    border-radius: 50px;
+    cursor: pointer;
+    svg {
+      width: 100%;
+    }
+  }
+  .sideBar-mobile-wrap {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transform: translateX(-200%);
+    transition: all 0.3s ease;
+  }
+  .show-bar-mobile {
+    transform: translateX(0);
+  }
   .search {
     width: 461px;
     height: 56px;

@@ -10,7 +10,72 @@ const Home = () => {
     <div>
       <Layout>
         <ContentWrapStyle className="content-wrap">
-          <ContentLeftStyle className="content-left">
+          <div className="row">
+            <Banner
+              className="banner"
+              text="Discover, Create and Sell Your Own NFT."
+            ></Banner>
+            <div className="widget">
+              <Card
+                title="Revenue"
+                amount={5.0}
+                percent={12.3}
+                width="104px"
+                height="118px"
+              ></Card>
+              <Card
+                title="Spending"
+                amount={2.0}
+                percent={8.1}
+                width="104px"
+                height="118px"
+              ></Card>
+              <Card
+                title="ROI"
+                percent={-5.1}
+                content="+14.02"
+                width="104px"
+                height="118px"
+              ></Card>
+              <Card
+                title="Estimated"
+                amount={7.0}
+                percent={3.2}
+                width="104px"
+                height="118px"
+              ></Card>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="trending">
+              <div className="title-top">
+                <div className="title">
+                  <h2>Trending Auctions</h2>
+                </div>
+                <div className="title-link-list">
+                  <div className="title-link-item active">Art</div>
+                  <div className="title-link-item">Music</div>
+                  <div className="title-link-item">Collectibles</div>
+                  <div className="title-link-item">Utility</div>
+                </div>
+              </div>
+              <div className="card-nft">
+                <CardNFT btn={true}></CardNFT>
+                <CardNFT></CardNFT>
+                <CardNFT></CardNFT>
+                <CardNFT></CardNFT>
+                <CardNFT></CardNFT>
+                <CardNFT></CardNFT>
+              </div>
+            </div>
+            {/* Creator */}
+            <div className="top-creator">
+              <Creator></Creator>
+            </div>
+          </div>
+
+          {/* <ContentLeftStyle className="content-left">
             <Banner text="Discover, Create and Sell Your Own NFT."></Banner>
             <div className="trending">
               <div className="title-top">
@@ -70,7 +135,7 @@ const Home = () => {
             <div className="top-creator">
               <Creator></Creator>
             </div>
-          </ContentRightStyle>
+          </ContentRightStyle> */}
         </ContentWrapStyle>
       </Layout>
     </div>
@@ -80,12 +145,21 @@ const Home = () => {
 export default Home;
 
 const ContentWrapStyle = styled.div`
-  display: flex;
-`;
+  /* display: flex; */
+  .row {
+    display: grid;
+    grid-template-columns: 70% 30%;
+  }
+  .widget {
+    margin-top: 32px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
 
-const ContentLeftStyle = styled.div`
-  width: 70%;
-
+  /* Trending Aucions */
   .trending {
     margin-top: 24px;
   }
@@ -117,28 +191,165 @@ const ContentLeftStyle = styled.div`
     background-color: #5429ff1a;
   }
 
-  .card {
+  .card-nft {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
   }
-`;
 
-const ContentRightStyle = styled.div`
-  width: 30%;
-
-  .widget {
-    margin-top: 32px;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
+  /* top creator */
   .top-creator {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
   }
+
+  @media (max-width: 1200px) {
+    .row {
+      grid-template-columns: 100%;
+    }
+    .banner {
+      max-width: 1200px;
+    }
+    .banner-btn {
+      justify-content: center;
+    }
+    .carousel.carousel-slider .control-arrow {
+      display: none;
+    }
+    .carousel .control-dots {
+      display: block;
+    }
+    /* widget */
+    .widget {
+      margin-top: 0;
+      justify-content: space-evenly;
+    }
+
+    /* card-nft */
+    .card-nft {
+      justify-content: space-between;
+    }
+    .card-nft-item {
+      width: 30%;
+    }
+    /* top creator */
+    .top-creator {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    /* banner */
+    .banner-wrap {
+      padding: 42px;
+      .banner-title {
+        font-size: 40px;
+      }
+    }
+
+    /*card-nft-item */
+    .card-nft-item {
+      width: 48%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* Trending */
+    .title-top {
+      flex-direction: column;
+      .title-link-list {
+        justify-content: center;
+      }
+    }
+    /*card-nft-item */
+    .card-nft {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .banner-wrap {
+      padding: 10px;
+      .banner-title {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+      .jdjFtQ,
+      .chzHzq {
+        width: 98px;
+        height: 36px;
+      }
+    }
+    .carousel .control-dots {
+      display: none;
+    }
+    .carousel.carousel-slider .control-arrow {
+      display: block;
+    }
+    /*card-nft-item */
+    .card-nft-item {
+      width: 100%;
+    }
+  }
 `;
+
+// const ContentLeftStyle = styled.div`
+//   width: 70%;
+
+//   .trending {
+//     margin-top: 24px;
+//   }
+
+//   .title-top {
+//     margin-bottom: 20px;
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-between;
+//   }
+
+//   .title-link-list {
+//     display: flex;
+//     align-items: center;
+//   }
+//   .title-link-item {
+//     margin: 0 8px;
+//     padding: 0 12px;
+//     line-height: 28px;
+//     font-size: 14px;
+//     font-weight: 500;
+//     color: ${Color.textColor2};
+//     cursor: pointer;
+//   }
+
+//   .active {
+//     border-radius: 30px;
+//     color: ${Color.primaryColor};
+//     background-color: #5429ff1a;
+//   }
+
+//   .card {
+//     display: flex;
+//     flex-wrap: wrap;
+//     gap: 20px;
+//   }
+// `;
+
+// const ContentRightStyle = styled.div`
+//   width: 30%;
+
+//   .widget {
+//     margin-top: 32px;
+//     width: 100%;
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     gap: 12px;
+//   }
+
+//   .top-creator {
+//     margin-top: 40px;
+//     display: flex;
+//     flex-direction: column;
+//   }
+// `;

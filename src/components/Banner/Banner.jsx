@@ -7,10 +7,15 @@ import bannerImg from 'assets/images/banner-img.svg';
 import bannerImg2 from 'assets/images/bannerImg2.jpg';
 import bannerImg3 from 'assets/images/bannerImg3.jpg';
 
-export const Banner = ({text}) => {
+export const Banner = ({text, className}) => {
   return (
-    <BannerStyle>
-      <Carousel showArrows={false} showStatus={false} autoPlay={true}>
+    <BannerStyle className={className}>
+      <Carousel
+        showArrows={true}
+        showStatus={false}
+        autoPlay={true}
+        infiniteLoop={true}
+      >
         <div className="banner-wrap slider-1">
           <div className="banner-title">{text}</div>
           <div className="banner-btn">
@@ -98,8 +103,8 @@ export const Banner = ({text}) => {
 
 const BannerStyle = styled.div`
   margin-top: 32px;
-  width: 716px;
-  height: 354px;
+  max-width: 716px;
+  /* height: 354px; */
   border-radius: 12px;
   /* background: linear-gradient(
       75.33deg,
@@ -110,6 +115,7 @@ const BannerStyle = styled.div`
 
   .slider-1 {
     background: url(${bannerImg});
+    border-radius: 12px;
   }
   .slider-2 {
     background: url(${bannerImg2});
@@ -121,7 +127,8 @@ const BannerStyle = styled.div`
   .slider-2,
   .slider-3 {
     border-radius: 12px;
-    background-position: center;
+    background-position: cover;
+    background-repeat: no-repeat;
     background-size: 100%;
   }
   .banner-wrap {
