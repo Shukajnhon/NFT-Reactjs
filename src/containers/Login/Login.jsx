@@ -7,105 +7,196 @@ import githubIcon from 'assets/images/github.svg';
 import backgroundLogin from 'assets/images/LoginImg.svg';
 import {Logo} from 'components/Logo';
 
+import {Form, Field} from 'react-final-form';
+import {FORM_ERROR} from 'final-form';
+import {useNavigate} from 'react-router-dom';
+
 const Login = ({srcImg}) => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // onSubmit
+  const onSubmit = async (values) => {
+    await sleep(3000);
+    if (values.username !== 'hieu') {
+      return {username: 'Unknown username'};
+    }
+    if (values.password !== '123') {
+      return {[FORM_ERROR]: 'Login Failed !!! Check your password'};
+    }
+    console.log('LOGIN SUCCESS!');
+    // window.alert('LOGIN SUCCESS!');
+    navigate('/');
+    console.log(values);
+    const resetForm = () => {
+      values.username = '';
+      values.password = '';
+    };
+    resetForm();
+  };
+
+  // const handleResetForm = () => {
+
+  // };
+
   return (
     <LoginWrapStyle>
-      <div className="login-container">
-        <div className="login-form-wrap">
-          {/* Login left */}
-          <div className="login__left">
-            <div className="login-content">
-              <Logo></Logo>
-              <h2 className="login-title">Log In</h2>
-              <form className="form-control">
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                  />
-                  <span className="form-message" />
-                </div>
-                <div className="form-group form-password">
-                  <div className="form-label">
-                    <label className="form-label-password" htmlFor="password">
-                      Password
-                    </label>
-                    <label className="form-label-forgot-password">
-                      Forgot Password?
-                    </label>
-                  </div>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    id="password"
-                    placeholder="Enter password"
-                  />
-                  {showPassword ? (
-                    <i
-                      className="fa-solid fa-eye eyes-open"
-                      onClick={togglePassword}
-                    />
-                  ) : (
-                    <i
-                      className="fa-solid fa-eye-slash eyes-close"
-                      onClick={togglePassword}
-                    />
-                  )}
-                  <span className="form-password-message" />
-                </div>
-                <div className="btn">
-                  <button type="button" className="btn-login">
-                    LOGIN
-                    <i className="fas fa-arrow-right" />
-                  </button>
-                  <p className="or">or continue with</p>
-                  <div className="btn-social">
-                    <div className="social-group btn-google">
-                      <button>
-                        <img src={googleIcon} alt="google" />
-                      </button>
+      <Form
+        onSubmit={onSubmit}
+        validate={(values) => {
+          const errors = {};
+          if (!values.username) {
+            errors.username = 'Required';
+          }
+          if (!values.password) {
+            errors.password = 'Required';
+          }
+          return errors;
+        }}
+        render={({
+          submitError,
+          handleSubmit,
+          form,
+          submitting,
+          pristine,
+          values,
+        }) => (
+          <div className="login-container">
+            <div className="login-form-wrap">
+              {/* Login left */}
+              <div className="login__left">
+                <div className="login-content">
+                  <Logo></Logo>
+                  <h2 className="login-title">Log In</h2>
+                  <form className="form-control" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                      <Field name="username">
+                        {({input, meta}) => (
+                          <div>
+                            <label htmlFor="username">Username</label>
+                            <input
+                              {...input}
+                              type="text"
+                              id="username"
+                              placeholder="Username"
+                            />
+                            {(meta.error || meta.submitError) &&
+                              meta.touched && (
+                                <span className="error-submit">
+                                  {meta.error || meta.submitError}
+                                </span>
+                              )}
+                          </div>
+                        )}
+                      </Field>
+                      {/* <span className="form-message" /> */}
                     </div>
-                    <div className="social-group  btn-github">
-                      <button>
-                        <img src={githubIcon} alt="github" />
-                      </button>
+                    <div className="form-group form-password">
+                      <Field name="password">
+                        {({input, meta}) => (
+                          <div>
+                            <div className="form-label">
+                              <label
+                                className="form-label-password"
+                                htmlFor="password"
+                              >
+                                Password
+                              </label>
+                              <label className="form-label-forgot-password">
+                                Forgot Password?
+                              </label>
+                            </div>
+                            <input
+                              {...input}
+                              type={showPassword ? 'text' : 'password'}
+                              id="password"
+                              placeholder="Enter password"
+                            />
+                            {showPassword ? (
+                              <i
+                                className="fa-solid fa-eye eyes-open"
+                                onClick={togglePassword}
+                              />
+                            ) : (
+                              <i
+                                className="fa-solid fa-eye-slash eyes-close"
+                                onClick={togglePassword}
+                              />
+                            )}
+                            {meta.error && meta.touched && (
+                              <span className="error-submit">{meta.error}</span>
+                            )}
+                          </div>
+                        )}
+                      </Field>
+                      <span className="form-password-message" />
+                      {submitError && (
+                        <div className="error">{submitError}</div>
+                      )}
                     </div>
-                    <div className="social-group btn-facebook">
-                      <button>
-                        <img src={facebookIcon} alt="facebook" />
+
+                    <div className="btn">
+                      <button
+                        className="btn-login"
+                        type="submit"
+                        disabled={submitting}
+                      >
+                        {!submitting ? 'Login' : ''}
+                        {submitting ? (
+                          <i class="fa fa-spinner fa-spin"></i>
+                        ) : (
+                          <i className="fas fa-arrow-right" />
+                        )}
                       </button>
+
+                      <p className="or">or continue with</p>
+                      <div className="btn-social">
+                        <div className="social-group btn-google">
+                          <button>
+                            <img src={googleIcon} alt="google" />
+                          </button>
+                        </div>
+                        <div className="social-group  btn-github">
+                          <button>
+                            <img src={githubIcon} alt="github" />
+                          </button>
+                        </div>
+                        <div className="social-group btn-facebook">
+                          <button>
+                            <img src={facebookIcon} alt="facebook" />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="dont-have-account">
+                        <p className="dont-have-account-text">
+                          Don't have an account yet?
+                          <a href="/login">Sign up for free</a>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="dont-have-account">
-                    <p className="dont-have-account-text">
-                      Don't have an account yet?
-                      <a href="/login">Sign up for free</a>
-                    </p>
-                  </div>
+                  </form>
                 </div>
-              </form>
-            </div>
-          </div>
-          {/* Login right */}
-          <div className="login__right">
-            <div className="login-right-wrap">
-              <div className="images">
-                <img src={backgroundLogin} alt="backgroundLogin" />
               </div>
-              <div className="background" />
+              {/* Login right */}
+              <div className="login__right">
+                <div className="login-right-wrap">
+                  <div className="images">
+                    <img src={backgroundLogin} alt="backgroundLogin" />
+                  </div>
+                  <div className="background" />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      ></Form>
     </LoginWrapStyle>
   );
 };
@@ -212,6 +303,12 @@ const LoginWrapStyle = styled.div`
     font-size: 14px;
   }
 
+  .error,
+  .error-submit {
+    color: red;
+    font-size: 14px;
+  }
+
   .eyes-open {
     display: block;
   }
@@ -245,10 +342,21 @@ const LoginWrapStyle = styled.div`
     width: 150px;
     height: 46px;
     border: none;
+    font-size: 20px;
     border-radius: 20px;
     color: #fff;
     background-color: ${Color.primaryColor};
     cursor: pointer;
+  }
+  .btn-login .fa-arrow-right {
+    margin-left: 10px;
+  }
+
+  button:disabled,
+  button[disabled] {
+    background-color: ${Color.primaryColor};
+    opacity: 0.8;
+    cursor: not-allowed;
   }
 
   .btn p.or {
